@@ -24,7 +24,7 @@ public class ProveedorController {
 	ProveedorRepository proveedorRepository;
 
 	@GetMapping("/proveedores")
-	public ResponseEntity<List<Proveedor>> findAll() {
+	public ResponseEntity<List<Proveedor>> getAll() {
 		try {
 			List<Proveedor> list = proveedorRepository.findAll();
 
@@ -39,7 +39,7 @@ public class ProveedorController {
 	}
 
 	@GetMapping("/proveedores/{id}")
-	public ResponseEntity<Proveedor> getSingleCustomer(@PathVariable Integer id) {
+	public ResponseEntity<Proveedor> getSingle(@PathVariable Integer id) {
 		try {
 			Optional<Proveedor> proveedor = proveedorRepository.findById(id);
 
