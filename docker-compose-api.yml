@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  db:
+    container_name: db
+    image: postgres:latest
+    ports:
+    - "5432:5432"
+    restart: always
+    volumes:
+    - /data/postgres:/data/postgres
+    - ./database/1-tables.sql:/docker-entrypoint-initdb.d/1-tables.sql
+    - ./database/2-data.sql:/docker-entrypoint-initdb.d/2-data.sql
+    environment:
+      - POSTGRES_DB=dbwms
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    networks:
+      - backend
+
+  backend:
+    container_name: backend-sb
+    build:
+      context: backend-sb
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - DB_SERVER:db
+      - POSTGRES_DB=dbwms
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    networks:
+      - backend
+
+networks:
+  backend:
+  
