@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalState';
+import { Heading } from './Heading';
 
 export const ProveedorList = () => {
     const { proveedores, removeProveedor } = useContext(GlobalContext);
 
     return (
         <React.Fragment>
+            <Heading />
             {proveedores.length > 0 ? (
                 <React.Fragment>
                     {proveedores.map((proveedor) => (

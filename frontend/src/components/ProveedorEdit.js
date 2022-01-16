@@ -13,20 +13,20 @@ export const ProveedorEdit = (route) => {
         email: '',
         telefono: ''
     });
-    const currentUserId = route.match.params.id;
+    const currentProveedorId = route.match.params.id;
 
     useEffect(() => {
-        const proveedorId = currentUserId;
+        const proveedorId = currentProveedorId;
         const selectedProveedor = proveedores.find(
             (currentProveedorTraversal) => currentProveedorTraversal.id === parseInt(proveedorId)
         );
         setSelectedProveedor(selectedProveedor);
-    }, [currentUserId, proveedores]);
+    }, [currentProveedorId, proveedores]);
 
     const onSubmit = (e) => {
         e.preventDefault();
         editProveedor(selectedProveedor);
-        history.push('/');
+        history.push('/proveedores');
     };
 
     const handleOnChange = (userKey, newValue) =>
@@ -117,7 +117,7 @@ export const ProveedorEdit = (route) => {
                         </button>
                     </div>
                     <div className='text-center mt-4 text-gray-500'>
-                        <Link to='/'>Cancel</Link>
+                        <Link to='/proveedores'>Cancel</Link>
                     </div>
                 </form>
             </div>
