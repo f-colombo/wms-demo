@@ -1,8 +1,11 @@
 DROP TABLE IF EXISTS proveedor;
 DROP TABLE IF EXISTS producto;
 DROP TABLE IF EXISTS producto_detalle;
+DROP TABLE IF EXISTS producto_lote;
 DROP TABLE IF EXISTS ubicacion_tipo;
 DROP TABLE IF EXISTS ubicacion;
+DROP TABLE IF EXISTS producto_ubicacion_almacen;
+DROP TABLE IF EXISTS producto_ubicacion_lote;
 
 CREATE TABLE proveedor(
    id INT GENERATED ALWAYS AS IDENTITY,
@@ -24,12 +27,12 @@ CREATE TABLE producto(
    clase VARCHAR(255) NOT NULL,
    nivel_rotacion VARCHAR(1) NOT NULL,
    aplica_impuesto BOOLEAN NOT NULL DEFAULT FALSE,
-   proveedor_id INT NOT NULL,
+   id_proveedor INT NOT NULL,
    created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    available BOOLEAN NOT NULL DEFAULT TRUE,
    PRIMARY KEY(id),
    CONSTRAINT fk_proveedor
-     FOREIGN KEY(proveedor_id) 
+     FOREIGN KEY(id_proveedor) 
 	  REFERENCES proveedor(id)
 );
 
@@ -110,8 +113,30 @@ CREATE TABLE producto_ubicacion_almacen(
    PRIMARY KEY(id),
    CONSTRAINT fk_producto_almacen
      FOREIGN KEY(id_producto) 
-	  REFERENCES producto(id),
+    REFERENCES producto(id),
    CONSTRAINT fk_ubicacion_almacen
      FOREIGN KEY(id_ubicacion) 
-	  REFERENCES ubicacion(id)
+    REFERENCES ubicacion(id)
 );
+
+CREATE TABLE producto_ubicacion_lote(
+   id INT GENERATED ALWAYS AS IDENTITY,
+   id_producto INT NOT NULL,
+   id_ubicacion INT NOT NULL,
+   id_lote INT NOT NULL,
+   cantidad INT NOT NULL DEFAULT 0,
+   cantidad_bloqueada INT NOT NULL DEFAULT 0,
+   created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   available BOOLEAN NOT NULL DEFAULT TRUE,
+   PRIMARY KEY(id),
+   CONSTRAINT fk_table_producto
+     FOREIGN KEY(id_producto) 
+    REFERENCES producto(id),
+   CONSTRAINT fk_table_ubicacion
+     FOREIGN KEY(id_ubicacion) 
+    REFERENCES ubicacion(id),
+   CONSTRAINT fk_table_producto_lote
+     FOREIGN KEY(id_lote) 
+    REFERENCES producto_lote(id)
+);
+

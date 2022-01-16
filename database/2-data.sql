@@ -6,7 +6,7 @@ VALUES
   ('LPAS', 'Laboratorio Pasteur', 'Román Diaz 1271, Providencia - Santiago.', 'contacto@lpasteur.cl', '56 22 438 3100');
 
 INSERT INTO producto
-  (codigo, descripcion, tipo, clase, nivel_rotacion, aplica_impuesto, proveedor_id)
+  (codigo, descripcion, tipo, clase, nivel_rotacion, aplica_impuesto, id_proveedor)
 VALUES
   ('ACIC20', 'Aciclovir 200 mg', 'Comprimidos', 'Antiviral', 'A', TRUE, 1),
   ('CLON05', 'Clonazepam 0,5 mg', 'Comprimidos', 'Ansiolítico', 'B', TRUE, 1),
@@ -287,3 +287,17 @@ VALUES
   (9, 50, 'Despacho', 40, 10, 38),
   (9, 25, 'Primario', 150, 50, 39),
   (9, 29, 'Secundario', 2000, 2000, 40);
+  
+INSERT INTO producto_ubicacion_lote
+  (id_producto, id_ubicacion, id_lote, cantidad, cantidad_bloqueada)
+VALUES
+  (1, 57, 1, 2, 0),
+  (2, 58, 4, 4, 1),
+  (3, 59, 7, 6, 2),
+  (4, 60, 10, 8, 3),
+  (5, 61, 13, 10, 4),
+  (6, 62, 16, 12, 5),
+  (7, 63, 19, 14, 6),
+  (8, 64, 22, 16, 7),
+  (9, 65, 25, 18, 8);
+  
