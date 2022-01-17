@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DashboardDataService from '../services/DashboardDataService';
+import Navbar from './NavBar';
 
 export const Home = () => {
     const initDashboardItems = {
@@ -25,9 +26,11 @@ export const Home = () => {
     
     return (
         <React.Fragment>
+            <Navbar />
+            
             <section className="bg-white dark:bg-gray-900">
                 <div className="container px-6 py-10 mx-auto">
-                    <h1 className="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">WMS - Demo <br /> POC <span className="underline decoration-blue-500">Wharehouse Management System</span></h1>
+                    {/* <h1 className="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">WMS - Demo <br /> POC <span className="underline decoration-blue-500">Wharehouse Management System</span></h1> */}
 
                     <p className="mt-4 text-gray-500 xl:mt-6 dark:text-gray-300">
                         Software diseñado y creado para optimizar los procesos de almacenamiento, distribución, cadena de suministro y cumplimiento dentro de una empresa de distribución de medicinas.
