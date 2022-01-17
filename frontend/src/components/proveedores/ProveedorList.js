@@ -1,38 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import ProductoDataService from '../../services/ProductoDataService';
+import { GlobalContext } from '../../context/GlobalState';
+import { Heading } from '../Heading';
 import Navbar from '../NavBar';
 
-export const ProductoList = () => {
-    const initProductos = [];
-    const [productos, setProductos] = useState(initProductos);
-
-    useEffect(() => {
-        function obtieneProductos() {
-            ProductoDataService.getAll()
-                .then(response => {
-                    setProductos(response.data);
-                    console.log(response.data);
-                })
-                .catch(ex => {
-                    console.log(ex);
-                });
-        }
-        obtieneProductos();
-    }, []);
+export const ProveedorList = () => {
+    const { proveedores, removeProveedor } = useContext(GlobalContext);
 
     return (
         <React.Fragment>
             <Navbar />
             <div className='container mx-auto'>
                 <div className='flex-grow text-left px-4 py-2 m-2'>
-                    <h5 className='text-gray-900 font-bold text-xl'>Productos</h5>
+                    <h5 className='text-gray-900 font-bold text-xl'>Proveedores</h5>
                 </div>
                 <div className='flex-grow text-right px-4 py-2 m-2'>
-                    <Link to='/productos/add'>
+                    <Link to='/proveedores/add'>
                         <button className='bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center'>
                             <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' className='feather feather-plus-circle'><circle cx='12' cy='12' r='10'></circle><line x1='12' y1='8' x2='12' y2='16'></line><line x1='8' y1='12' x2='16' y2='12'></line></svg>
-                            <span className='pl-2'>Agregar Producto</span>
+                            <span className='pl-2'>Agregar Proveedor</span>
                         </button>
                     </Link>
                 </div>
@@ -57,39 +43,39 @@ export const ProductoList = () => {
                     </div>
                     <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
 
+                        {/* {"id":1,"codigo":"LCHI","nombre":"Laboratorio Chile","direccion":"Avenida Marathon #1315, Ñuñoa - Santiago.","email":"contacto@laboratoriochile.cl","telefono":"56 22 365 5000","available":true,"createOn":"2022-01-17T02:19:46.648+00:00"} */}
                         <table className="min-w-full">
                             <thead>
                                 <tr>
-                                {/* {"id":1,"codigo":"ACIC20","descripcion":"Aciclovir 200 mg","tipo":"Comprimidos","clase":"Antiviral","nivelRotacion":"A","aplicaImpuesto":true,"idProveedor":1,"available":true,"createOn":"2022-01-17T02:19:46.649+00:00"} */}
                                     <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">ID</th>
                                     <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Código</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Descripción</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Tipo</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Clase</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Nivel Rotación</th>
+                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Nombre</th>
+                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Dirección</th>
+                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Email</th>
+                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Teléfono</th>
                                     <th className="px-6 py-3 border-b-2 border-gray-300"></th>
                                 </tr>
                             </thead>
                             <tbody className="bg-white">
 
-                                {productos.length > 0 ? (
+                                {proveedores.length > 0 ? (
                                     <React.Fragment>
-                                        {productos.map((producto) => (
-                                            <tr key={producto.id}>
+                                        {proveedores.map((proveedor) => (
+                                            <tr key={proveedor.id}>
                                                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                                                     <div className="flex items-center">
                                                         <div>
-                                                            <div className="text-sm leading-5 text-gray-800">{producto.id}</div>
+                                                            <div className="text-sm leading-5 text-gray-800">{proveedor.id}</div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                                                    <div className="text-sm leading-5 text-blue-900">{producto.codigo}</div>
+                                                    <div className="text-sm leading-5 text-blue-900">{proveedor.codigo}</div>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{producto.descripcion}</td>
-                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{producto.tipo}</td>
-                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{producto.clase}</td>
-                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{producto.nivelRotacion}</td>
+                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{proveedor.nombre}</td>
+                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{proveedor.direccion}</td>
+                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{proveedor.email}</td>
+                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{proveedor.telefono}</td>
                                                 <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                                                     <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                                         <span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
@@ -99,16 +85,16 @@ export const ProductoList = () => {
                                                 <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
                                                     <div className='flex-auto text-right px-4 py-2 m-2'>
                                                         <Link
-                                                            to={`/producto/edit/${producto.id}`}
-                                                            title='Edit Producto'>
+                                                            to={`/proveedor/edit/${proveedor.id}`}
+                                                            title='Edit Proveedor'>
                                                             <button className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
                                                                 <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' className='feather feather-edit'><path d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'></path><path d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'></path></svg>
                                                             </button>
                                                         </Link>
                                                         <button
-                                                            // onClick={}
+                                                            onClick={() => removeProveedor(proveedor.id)}
                                                             className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none"
-                                                            title='Remove Producto'>
+                                                            title='Remove Proveedor'>
                                                             <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' className='feather feather-trash-2'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>
                                                         </button>
                                                     </div>
@@ -127,9 +113,9 @@ export const ProductoList = () => {
                                     Showing
                                     <span className="font-medium"> 1 </span>
                                     to
-                                    <span className="font-medium"> {productos.length} </span>
+                                    <span className="font-medium"> {proveedores.length} </span>
                                     of
-                                    <span className="font-medium"> {productos.length} </span>
+                                    <span className="font-medium"> {proveedores.length} </span>
                                     results
                                 </p>
                             </div>

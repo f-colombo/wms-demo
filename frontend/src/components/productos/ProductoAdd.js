@@ -11,6 +11,6 @@ export const ProductoAdd = () => {
             <p className='text-center bg-gray-100 text-gray-500 py-5'>
                 No data.
             </p>
-            </React.Fragment>
+        </React.Fragment>
     );
 }

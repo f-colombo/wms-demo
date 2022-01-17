@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ProductoDataService from '../../services/ProductoDataService';
+import UbicacionDataService from '../../services/UbicacionDataService';
 import Navbar from '../NavBar';
 
-export const ProductoList = () => {
-    const initProductos = [];
-    const [productos, setProductos] = useState(initProductos);
+export const UbicacionList = () => {
+    const initUbicaciones = [];
+    const [ubicaciones, setUbicaciones] = useState(initUbicaciones);
 
     useEffect(() => {
-        function obtieneProductos() {
-            ProductoDataService.getAll()
+        function obtieneUbicaciones() {
+            UbicacionDataService.getAll()
                 .then(response => {
-                    setProductos(response.data);
+                    setUbicaciones(response.data);
                     console.log(response.data);
                 })
                 .catch(ex => {
                     console.log(ex);
                 });
         }
-        obtieneProductos();
+        obtieneUbicaciones();
     }, []);
 
     return (
@@ -26,13 +26,13 @@ export const ProductoList = () => {
             <Navbar />
             <div className='container mx-auto'>
                 <div className='flex-grow text-left px-4 py-2 m-2'>
-                    <h5 className='text-gray-900 font-bold text-xl'>Productos</h5>
+                    <h5 className='text-gray-900 font-bold text-xl'>Ubicaciones</h5>
                 </div>
                 <div className='flex-grow text-right px-4 py-2 m-2'>
-                    <Link to='/productos/add'>
+                    <Link to='/ubicaciones/add'>
                         <button className='bg-green-400 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded inline-flex items-center'>
                             <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' className='feather feather-plus-circle'><circle cx='12' cy='12' r='10'></circle><line x1='12' y1='8' x2='12' y2='16'></line><line x1='8' y1='12' x2='16' y2='12'></line></svg>
-                            <span className='pl-2'>Agregar Producto</span>
+                            <span className='pl-2'>Agregar Ubicación</span>
                         </button>
                     </Link>
                 </div>
@@ -63,33 +63,31 @@ export const ProductoList = () => {
                                 {/* {"id":1,"codigo":"ACIC20","descripcion":"Aciclovir 200 mg","tipo":"Comprimidos","clase":"Antiviral","nivelRotacion":"A","aplicaImpuesto":true,"idProveedor":1,"available":true,"createOn":"2022-01-17T02:19:46.649+00:00"} */}
                                     <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">ID</th>
                                     <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Código</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Descripción</th>
+                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Nivel</th>
+                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Segmento</th>
                                     <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Tipo</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Clase</th>
-                                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">Nivel Rotación</th>
                                     <th className="px-6 py-3 border-b-2 border-gray-300"></th>
                                 </tr>
                             </thead>
                             <tbody className="bg-white">
 
-                                {productos.length > 0 ? (
+                                {ubicaciones.length > 0 ? (
                                     <React.Fragment>
-                                        {productos.map((producto) => (
-                                            <tr key={producto.id}>
+                                        {ubicaciones.map((ubicacion) => (
+                                            <tr key={ubicacion.id}>
                                                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                                                     <div className="flex items-center">
                                                         <div>
-                                                            <div className="text-sm leading-5 text-gray-800">{producto.id}</div>
+                                                            <div className="text-sm leading-5 text-gray-800">{ubicacion.id}</div>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                                                    <div className="text-sm leading-5 text-blue-900">{producto.codigo}</div>
+                                                    <div className="text-sm leading-5 text-blue-900">{ubicacion.codigo}</div>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{producto.descripcion}</td>
-                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{producto.tipo}</td>
-                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{producto.clase}</td>
-                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{producto.nivelRotacion}</td>
+                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{ubicacion.nivel}</td>
+                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{ubicacion.segmento}</td>
+                                                <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{ubicacion.codigoTipo}</td>
                                                 <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                                                     <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                                         <span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
@@ -99,8 +97,8 @@ export const ProductoList = () => {
                                                 <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
                                                     <div className='flex-auto text-right px-4 py-2 m-2'>
                                                         <Link
-                                                            to={`/producto/edit/${producto.id}`}
-                                                            title='Edit Producto'>
+                                                            to={`/ubicacion/edit/${ubicacion.id}`}
+                                                            title='Edit Ubicación'>
                                                             <button className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
                                                                 <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' className='feather feather-edit'><path d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'></path><path d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'></path></svg>
                                                             </button>
@@ -108,7 +106,7 @@ export const ProductoList = () => {
                                                         <button
                                                             // onClick={}
                                                             className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none"
-                                                            title='Remove Producto'>
+                                                            title='Remove Ubicación'>
                                                             <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' className='feather feather-trash-2'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path><line x1='10' y1='11' x2='10' y2='17'></line><line x1='14' y1='11' x2='14' y2='17'></line></svg>
                                                         </button>
                                                     </div>
@@ -127,9 +125,9 @@ export const ProductoList = () => {
                                     Showing
                                     <span className="font-medium"> 1 </span>
                                     to
-                                    <span className="font-medium"> {productos.length} </span>
+                                    <span className="font-medium"> {ubicaciones.length} </span>
                                     of
-                                    <span className="font-medium"> {productos.length} </span>
+                                    <span className="font-medium"> {ubicaciones.length} </span>
                                     results
                                 </p>
                             </div>
