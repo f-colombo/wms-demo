@@ -81,6 +81,7 @@
 				<configuration>
 					<includes>
 						<include>ProveedorControllerTest.java</include>
+						<include>DashboardControllerTest.java</include>
 					</includes>
 				</configuration>
 			</plugin>

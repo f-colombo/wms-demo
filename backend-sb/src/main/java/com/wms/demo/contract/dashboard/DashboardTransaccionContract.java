@@ -44,7 +44,7 @@ public class DashboardTransaccionContract {
 		return enlace;
 	}
 
-	public void set(String Enlace) {
+	public void setEnlace(String Enlace) {
 		this.enlace = Enlace;
 	}
 	
